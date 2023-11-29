@@ -16,7 +16,7 @@ To run the project, simply clone it.
 - Particles effet on collision
 - Effect with text on bonus
 - Restart game option
-- Life system
+- Nombre de vie restante system
 - Level system
 - Show rules
 - Better models

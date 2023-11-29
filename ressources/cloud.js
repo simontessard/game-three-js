@@ -1,5 +1,5 @@
 var Colors = {
-	white:0xd8d0d1,
+	white:0xF4FAFC,
 };
 
 export default function Cloud(){
@@ -23,7 +23,7 @@ export default function Cloud(){
 		var m = new THREE.Mesh(geom, mat); 
 		
 		// set the position and the rotation of each cube randomly
-		m.position.x = i*15;
+		m.position.x = i*10;
 		m.position.y = Math.random()*10;
 		m.position.z = Math.random()*10;
 		m.rotation.z = Math.random()*Math.PI*2;

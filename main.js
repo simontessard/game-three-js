@@ -1,8 +1,11 @@
 import AirPlane from './ressources/plane.js';
 import Lava from './ressources/lava.js';
+import Ground from './ressources/ground.js';
 import Sky from './ressources/sky.js';
 import Bonus from './ressources/bonus.js';
 import Malus from './ressources/malus.js';
+import Sun from './ressources/sun.js';
+import Trees from './ressources/trees.js';
 
 window.addEventListener('load', init, false);
 
@@ -13,13 +16,10 @@ function init() {
 	createPlane();
 	createLava();
 	createSky();
-	// start a loop that will update the objects' positions 
-	// and render the scene on each frame
-    document.addEventListener('mousemove', handleMouseMove, false);
+  document.addEventListener('mousemove', handleMouseMove, false);
 	loop();
-    renderer.render(scene, camera);
+  renderer.render(scene, camera);
 }
-
 var gameIsLive = false;
 document.getElementById('game-container').addEventListener('click', startGame);
 var infoBox = document.getElementById('info-container');
@@ -29,10 +29,12 @@ var scoreBox = document.getElementById('score');
 var lifeBox = document.getElementById('life');
 
 function startGame() {
+  life = 5;
+	airplane.mesh.position.y = 100;
 	gameIsLive = true;
   createBonus();
   createMalus();
-  // Hide the play button
+  lifeBox.textContent = "Nombre de vie restante: " + life;
   document.getElementById('playButton').style.display = 'none';
 	infoBox.style.display = 'flex';
   document.getElementById('game-container').removeEventListener('click', startGame);
@@ -115,13 +117,12 @@ function createLights() {
 	// A hemisphere light is a gradient colored light; 
 	// the first parameter is the sky color, the second parameter is the ground color, 
 	// the third parameter is the intensity of the light
-	hemisphereLight = new THREE.HemisphereLight(0xaaaaaa,0x000000, 3)
+	hemisphereLight = new THREE.HemisphereLight(0xFFFFFF,0x000000, 2)
 	
 	// A directional light shines from a specific direction. 
 	// It acts like the sun, that means that all the rays produced are parallel. 
 	shadowLight = new THREE.DirectionalLight(0xffffff, 4);
-
-    ambientLight = new THREE.AmbientLight(0xdc8874, .5);
+  ambientLight = new THREE.AmbientLight(0xece1bc, .5);
 
 	// Set the direction of the light  
 	shadowLight.position.set(150, 350, 350);
@@ -149,22 +150,34 @@ function createLights() {
 }
 
 // Instantiate the lava and add it to the scene:
-var lava, sky, airplane;
+var lava, sky, airplane, lava1, sun, trees;
 
 function createLava(){
 	lava = new Lava();
-
 	// push it a little bit at the bottom of the scene
-	lava.mesh.position.y = -600;
-
+	lava.mesh.position.y = -500;
 	// add the mesh of the lava to the scene
 	scene.add(lava.mesh);
+
+  lava1 = new Ground();
+  lava1.mesh.position.y = -500;
+  scene.add(lava1.mesh);
+
+  trees = new Trees();
+  trees.mesh.position.y = -500;
+  trees.mesh.position.x = 1300;
+  scene.add(trees.mesh);
 }
 
 function createSky(){
 	sky = new Sky();
-	sky.mesh.position.y = -600;
+	sky.mesh.position.y = 500;
 	scene.add(sky.mesh);
+
+  sun = new Sun();
+	sun.mesh.position.y = 300;
+	sun.mesh.position.x = 300;
+	scene.add(sun.mesh);
 }
 
 function createPlane(){ 
@@ -179,26 +192,26 @@ function createPlane(){
 var bonusArray = []; // Create an array to store all the bonus
 
 function createBonus(){
-    for (var i = 0; i < 3; i++) { // Create 3 bonus
+    for (var i = 0; i < 3; i++) { 
         var bonus = new Bonus();
-        bonus.mesh.position.y = Math.random() * 150 + 50; // Random y position between 50 and 200
-        bonus.mesh.position.x = window.innerWidth / 2 + i * 100; // Spread out the bonus
+        bonus.mesh.position.y = Math.random() * 150 + 50;
+        bonus.mesh.position.x = window.innerWidth / 2 + i * 100;
         scene.add(bonus.mesh);
-        bonusArray.push(bonus); // Add the bonus to the array
+        bonusArray.push(bonus);
     }
     animateBonus();
 }
 
+var animationBonusId;
 function animateBonus() {
-    requestAnimationFrame(animateBonus);
-    for (var i = 0; i < bonusArray.length; i++) { // Animate each bonus
+    animationBonusId = requestAnimationFrame(animateBonus);
+    for (var i = 0; i < bonusArray.length; i++) {
         var bonus = bonusArray[i];
-        bonus.mesh.position.x -= 2; // Move to the left
+        bonus.mesh.position.x -= 2;
 
-        // If the bonus is out of the screen on the left side, reset its position to the right side
         if (bonus.mesh.position.x < -window.innerWidth / 2) {
             bonus.mesh.position.x = window.innerWidth / 2;
-            bonus.mesh.position.y = Math.random() * 150 + 50; // Random y position between 50 and 200
+            bonus.mesh.position.y = Math.random() * 150 + 50;
         }
     }
 }
@@ -216,8 +229,9 @@ function createMalus(){
     animateMalus();
 }
 
+var animationMalusId;
 function animateMalus() {
-    requestAnimationFrame(animateMalus);
+    animationMalusId = requestAnimationFrame(animateMalus);
     for (var i = 0; i < malusArray.length; i++) { // Animate each malus
         var malus = malusArray[i];
         malus.mesh.position.x -= 3;
@@ -262,10 +276,28 @@ var life = 5;
 var isPushedBack = false;
 
 function loop(){
-	lava.mesh.rotation.z += .005;
-	sky.mesh.rotation.z += .01;
+  sky.mesh.position.x -= 3;
+  if (sky.mesh.position.x < -window.innerWidth - 1500) {
+      sky.mesh.position.x = window.innerWidth + 1500;
+  }
+  // Move the first lava object
+  lava.mesh.position.x -= 3;
+  if (lava.mesh.position.x < -window.innerWidth - 1000) {
+      lava.mesh.position.x = window.innerWidth / 1;
+  }
+  // Move the first lava object
+  sun.mesh.position.x -= .5;
+  if (sun.mesh.position.x < -window.innerWidth ) {
+      sun.mesh.position.x = window.innerWidth / 1.5;
+  }
 
-    var airplaneBox = new THREE.Box3().setFromObject(airplane.mesh);
+  // Move the first lava object
+  trees.mesh.position.x -= 3;
+  if (trees.mesh.position.x < -window.innerWidth - 1000) {
+    trees.mesh.position.x = window.innerWidth / 1;
+  }
+
+  var airplaneBox = new THREE.Box3().setFromObject(airplane.mesh);
 
 	for (var i = 0; i < bonusArray.length; i++) { // Check each bonus
         var bonusBox = new THREE.Box3().setFromObject(bonusArray[i].mesh);
@@ -276,10 +308,11 @@ function loop(){
 
         if (airplaneBox.intersectsBox(bonusBox)) {
             score++;
-            console.log("Score: " + score);
-            scoreBox.textContent = "Score: " + score;
+            console.log("Cobalt Points: " + score);
+            scoreBox.textContent = "Cobalt Points: " + score;
             bonusArray[i].mesh.position.x = window.innerWidth / 2; // Reset bonus position
             bonusArray[i].mesh.position.y = Math.random() * 150 + 50; // Random y position between 50 and 200
+            showPlusOne(airplane.mesh.position); // Show the "+1" text
         }
     }
 
@@ -288,8 +321,8 @@ function loop(){
 
         if (airplaneBox.intersectsBox(malusBox)) {
             life--;
-            console.log("Life: " + life);
-            lifeBox.textContent = "Life: " + life;
+            console.log("Nombre de vie restante: " + life);
+            lifeBox.textContent = "Nombre de vie restante: " + life;
             malusArray[i].mesh.position.x = window.innerWidth / 2; // Reset malus position
             malusArray[i].mesh.position.y = Math.random() * 150 + 50; // Random y position between 50 and 200
 
@@ -305,6 +338,10 @@ function loop(){
 	if (gameIsLive) {
 		updateCamera();
 	}
+
+  if (life === 0) {
+    stopGame();
+  }
 	
 	renderer.render(scene, camera);
 	requestAnimationFrame(loop);
@@ -339,4 +376,44 @@ function normalize(v,vmin,vmax,tmin, tmax){
 	var dt = tmax-tmin;
 	var tv = tmin + (pc*dt);
 	return tv;
+}
+
+function stopGame() {
+    gameIsLive = false;
+    lifeBox.textContent = "Vous avez perdu!";
+    document.getElementById('playButton').style.display = 'block';
+    document.getElementById('game-container').addEventListener('click', startGame);
+    deleteMalus();
+    deleteBonus();
+    airplane.mesh.position.y = -1;
+}
+
+function deleteMalus() {
+  for (var i = 0; i < malusArray.length; i++) { // Loop through each malus
+      var malus = malusArray[i];
+      scene.remove(malus.mesh); // Remove the malus from the scene
+  }
+  malusArray = []; // Empty the malusArray
+  cancelAnimationFrame(animationMalusId);
+}
+function deleteBonus() {
+  for (var i = 0; i < bonusArray.length; i++) { // Loop through each malus
+      var bonus = bonusArray[i];
+      scene.remove(bonus.mesh); // Remove the malus from the scene
+  }
+  bonusArray = []; // Empty the malusArray
+  cancelAnimationFrame(animationBonusId);
+}
+
+function showPlusOne(airplanePosition) {
+  var plusOne = document.getElementById('plusOne');
+  plusOne.style.left = '50%';
+  plusOne.style.top = '50%';
+  plusOne.style.opacity = 1;
+
+  // Animate the "+1" text to move up and fade out
+  setTimeout(function() {
+      plusOne.style.top = (airplanePosition.y - 50) + 'px';
+      plusOne.style.opacity = 0;
+  },0);
 }

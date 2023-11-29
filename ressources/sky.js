@@ -1,12 +1,11 @@
 import Cloud from './cloud.js';
-import Sun from './sun.js';
 
 export default function Sky(){
 	// Create an empty container
 	this.mesh = new THREE.Object3D();
 	
 	// choose a number of clouds to be scattered in the sky
-	this.nClouds = 22;
+	this.nClouds = 50;
 	
 	// To distribute the clouds consistently,
 	// we need to place them according to a uniform angle
@@ -24,15 +23,15 @@ export default function Sky(){
 		// Trigonometry!!! I hope you remember what you've learned in Math :)
 		// in case you don't: 
 		// we are simply converting polar coordinates (angle, distance) into Cartesian coordinates (x, y)
-		c.mesh.position.y = Math.sin(a)*h;
-		c.mesh.position.x = Math.cos(a)*h;
+		c.mesh.position.y = Math.random() * -250 - 100;
+		c.mesh.position.x = Math.cos(a)*h*2;
 
 		// rotate the cloud according to its position
 		c.mesh.rotation.z = a + Math.PI/2;
 
 		// for a better result, we position the clouds 
 		// at random depths inside of the scene
-		c.mesh.position.z = -400-Math.random()*400;
+		c.mesh.position.z = -350-Math.random()*350;
 		
 		// we also set a random scale for each cloud
 		var s = 1+Math.random()*2;
@@ -41,6 +40,5 @@ export default function Sky(){
 		// do not forget to add the mesh of each cloud in the scene
 		this.mesh.add(c.mesh);  
 	}
-	var sun = new Sun();
-	this.mesh.add(sun.mesh);
+	
 }
