@@ -18,7 +18,7 @@ export default function Ground(){
 	ground.castShadow = true;
 	ground.receiveShadow = true;
 
-	// Allow the lava to receive shadows
+	// Allow the rockyGround to receive shadows
 	this.mesh = new THREE.Object3D();
 	this.mesh.add(ground);
 	this.mesh.receiveShadow = true;

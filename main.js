@@ -1,5 +1,5 @@
 import AirPlane from './ressources/plane.js';
-import Lava from './ressources/lava.js';
+import RockyGround from './ressources/rockyGround.js';
 import Ground from './ressources/ground.js';
 import Sky from './ressources/sky.js';
 import Bonus from './ressources/bonus.js';
@@ -15,7 +15,7 @@ async function init() {
 	createScene();
 	createLights();
 	createPlane();
-	createLava();
+	createRockyGround();
 	createSky();
   const model = await createBird();
   document.addEventListener('mousemove', handleMouseMove, false);
@@ -151,19 +151,19 @@ function createLights() {
     scene.add(ambientLight);
 }
 
-// Instantiate the lava and add it to the scene:
-var lava, sky, airplane, lava1, sun, trees;
+// Instantiate the rockyGround and add it to the scene:
+var rockyGround, sky, airplane, ground, sun, trees;
 
-function createLava(){
-	lava = new Lava();
+function createRockyGround(){
+	rockyGround = new RockyGround();
 	// push it a little bit at the bottom of the scene
-	lava.mesh.position.y = -500;
-	// add the mesh of the lava to the scene
-	scene.add(lava.mesh);
+	rockyGround.mesh.position.y = -500;
+	// add the mesh of the rockyGround to the scene
+	scene.add(rockyGround.mesh);
 
-  lava1 = new Ground();
-  lava1.mesh.position.y = -500;
-  scene.add(lava1.mesh);
+  ground = new Ground();
+  ground.mesh.position.y = -500;
+  scene.add(ground.mesh);
 
   trees = new Trees();
   trees.mesh.position.y = -500;
@@ -302,18 +302,18 @@ function loop(){
   if (sky.mesh.position.x < -window.innerWidth - 1500) {
       sky.mesh.position.x = window.innerWidth + 1500;
   }
-  // Move the first lava object
-  lava.mesh.position.x -= 3;
-  if (lava.mesh.position.x < -window.innerWidth - 1000) {
-      lava.mesh.position.x = window.innerWidth / 1;
+  // Move the first rockyGround object
+  rockyGround.mesh.position.x -= 3;
+  if (rockyGround.mesh.position.x < -window.innerWidth - 1000) {
+      rockyGround.mesh.position.x = window.innerWidth / 1;
   }
-  // Move the first lava object
+  // Move the first rockyGround object
   sun.mesh.position.x -= .5;
   if (sun.mesh.position.x < -window.innerWidth ) {
       sun.mesh.position.x = window.innerWidth / 1.5;
   }
 
-  // Move the first lava object
+  // Move the first rockyGround object
   trees.mesh.position.x -= 3;
   if (trees.mesh.position.x < -window.innerWidth - 1000) {
     trees.mesh.position.x = window.innerWidth / 1;
@@ -413,7 +413,7 @@ function stopGame() {
     document.getElementById('game-container').addEventListener('click', startGame);
     deleteMalus();
     deleteBonus();
-    airplane.mesh.position.y = -1;
+    airplane.mesh.position.y = 0;
 }
 
 function deleteMalus() {

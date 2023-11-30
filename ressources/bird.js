@@ -1,7 +1,7 @@
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
-export default function Bird() {   
-	// Instantiate a loader
+export default function Bird() {
+    
 this.loader = new GLTFLoader();
 this.scene = {};
 this.theModel = {};
@@ -11,7 +11,7 @@ this.loader.load(
 	// resource URL
 	'ressources/model/flying_bird/scene.gltf',
 	// called when the resource is loaded
-	 ( gltf ) => {
+	( gltf ) => {
         gltf.scene.position.x = Math.floor(Math.random() * 101) + 50;
         gltf.scene.position.y = Math.floor(Math.random() * 101) + 50;
         gltf.scene.rotation.y = 1;

@@ -16,7 +16,6 @@ export default function Trees(){
 		flatShading:true
 	});
 
-    
 	// To create an object in Three.js, we have to create a mesh 
 	// which is a combination of a geometry and some material
 	var ground = new THREE.Mesh(geomGround, mat);
@@ -64,16 +63,14 @@ export default function Trees(){
     tree.add( squareLeave03 );
     tree.add( stem );
 		
-
-		var positionX = Math.random() * 2000 - 100;
-		tree.position.x = positionX; // Random x position between -300 and 300
-		tree.position.y = 300; // Set y position to half of the cylinder height to place it on the surface
-		tree.position.z = Math.random() * 250 - 280; // Random z position between -400 and 400
-        tree.scale.set( 15, 15, 15 );
-		ground.add(tree);
+	var positionX = Math.random() * 2000 - 100;
+	tree.position.x = positionX; // Random x position between -300 and 300
+	tree.position.y = 300; // Set y position to half of the cylinder height to place it on the surface
+	tree.position.z = Math.random() * 250 - 280; // Random z position between -400 and 400
+    tree.scale.set( 15, 15, 15 );
+	ground.add(tree);
 	}
 
-	// Allow the lava to receive shadows
 	this.mesh = new THREE.Object3D();
 	this.mesh.add(ground);
 	this.mesh.receiveShadow = true;

@@ -3,7 +3,7 @@ var Colors = {
     grey:0x808080,
 };
 
-export default function Lava(){
+export default function RockyGround(){
 	
 	var geomGround = new THREE.BoxGeometry(1500,600,600);
 	var mat = new THREE.MeshPhongMaterial({
@@ -33,7 +33,7 @@ export default function Lava(){
 		ground.add(rock);
 	}
 
-	// Allow the lava to receive shadows
+	// Allow the rockyGround to receive shadows
 	this.mesh = new THREE.Object3D();
 	this.mesh.add(ground);
 	this.mesh.receiveShadow = true;
