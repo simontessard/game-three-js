@@ -444,7 +444,7 @@ function showPlusOne() {
   setTimeout(function() {
       p.style.opacity = 0;
       p.style.top = '40%';
-      document.body.removed(p);
+      document.body.removedChild(p);
   },1000);
 }
 
