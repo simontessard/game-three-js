@@ -27,7 +27,6 @@ export default function Lava(){
 		var geomRock = new THREE.DodecahedronGeometry(30, 0); 
 		var rock = new THREE.Mesh(geomRock, matRock);
 		var positionX = Math.random() * 2000 - 100;
-		console.log(positionX);
 		rock.position.x = positionX; // Random x position between -300 and 300
 		rock.position.y = 300; // Set y position to half of the cylinder height to place it on the surface
 		rock.position.z = Math.random() * 250 - 280; // Random z position between -400 and 400

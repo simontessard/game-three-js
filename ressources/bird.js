@@ -1,28 +1,30 @@
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
-
-export default function Bird(scene) {   
+export default function Bird() {   
 	// Instantiate a loader
 this.loader = new GLTFLoader();
+this.scene = {};
+this.theModel = {};
 
 // Load a glTF resource
 this.loader.load(
 	// resource URL
 	'ressources/model/flying_bird/scene.gltf',
 	// called when the resource is loaded
-	function ( gltf ) {
-    gltf.scene.position.x = Math.floor(Math.random() * 101) + 50;
-    gltf.scene.position.y = Math.floor(Math.random() * 101) + 50;
-    gltf.scene.rotation.y = 1;
-    gltf.scene.rotation.x = 10;
-    gltf.scene.scale.set(50, 50, 50);
-    gltf.scene.castShadow = true;
-    gltf.scene.receiveShadow = true;
-    scene.add( gltf.scene );
+	 ( gltf ) => {
+        gltf.scene.position.x = Math.floor(Math.random() * 101) + 50;
+        gltf.scene.position.y = Math.floor(Math.random() * 101) + 50;
+        gltf.scene.rotation.y = 1;
+        gltf.scene.rotation.x = 10;
+        gltf.scene.scale.set(50, 50, 50);
+        gltf.scene.castShadow = true;
+        gltf.scene.receiveShadow = true;
+        this.theModel = gltf.scene;
+        this.scene = gltf.scene;
 	}
 );
-}
 
+}
 var birdArray = []; 
 
 export function createBird(scene){

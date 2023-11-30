@@ -6,16 +6,18 @@ import Bonus from './ressources/bonus.js';
 import Malus from './ressources/malus.js';
 import Sun from './ressources/sun.js';
 import Trees from './ressources/trees.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 window.addEventListener('load', init, false);
 
 // STRUCTURE
-function init() {
+async function init() {
 	createScene();
 	createLights();
 	createPlane();
 	createLava();
 	createSky();
+  const model = await createBird();
   document.addEventListener('mousemove', handleMouseMove, false);
 	loop();
   renderer.render(scene, camera);
@@ -186,6 +188,26 @@ function createPlane(){
 	airplane.mesh.position.y = 100;
 	scene.add(airplane.mesh);
 }
+var loader, customModel;
+function createBird() {
+   loader = new GLTFLoader();
+
+  // Load a glTF resource
+  loader.load(
+	// resource URL
+	'ressources/model/flying_bird/scene.gltf',
+	// called when the resource is loaded
+	 ( gltf ) => {
+        gltf.scene.position.y = 150;
+        gltf.scene.position.x = 100;
+        gltf.scene.rotation.y = 8;
+        gltf.scene.scale.set(30, 30, 30);
+        gltf.scene.castShadow = true;
+        gltf.scene.receiveShadow = true;
+        scene.add(gltf.scene);
+        customModel = gltf.scene;
+	})
+}
 
 // BONUS AND MALUS MANAGEMENT
 
@@ -296,6 +318,12 @@ function loop(){
   if (trees.mesh.position.x < -window.innerWidth - 1000) {
     trees.mesh.position.x = window.innerWidth / 1;
   }
+  if (customModel) {
+    customModel.position.x -= 2;
+    if (customModel.position.x < -window.innerWidth) {
+      customModel.position.x = window.innerWidth;
+    }
+  }
 
   var airplaneBox = new THREE.Box3().setFromObject(airplane.mesh);
 
@@ -365,7 +393,7 @@ function updatePlane(){
 	airplane.mesh.rotation.z = (targetY-airplane.mesh.position.y)*0.0128;
 	airplane.mesh.rotation.x = (airplane.mesh.position.y-targetY)*0.0064;
 
-	airplane.propeller.rotation.x += 0.3;
+	airplane.propeller.rotation.x += 0.25;
 }
 
 function normalize(v,vmin,vmax,tmin, tmax){
