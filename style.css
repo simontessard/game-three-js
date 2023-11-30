@@ -29,9 +29,6 @@ body {
 	width: fit-content;
 }
 
-#score {
-}
-
 #playButton {
 	position: absolute;
 	z-index: 888;
