@@ -30,6 +30,8 @@ export default function RockyGround(){
 		rock.position.x = positionX; // Random x position between -300 and 300
 		rock.position.y = 300; // Set y position to half of the cylinder height to place it on the surface
 		rock.position.z = Math.random() * 250 - 280; // Random z position between -400 and 400
+		rock.receiveShadow = true;
+		rock.castShadow = true;
 		ground.add(rock);
 	}
 

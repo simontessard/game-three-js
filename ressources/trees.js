@@ -34,26 +34,38 @@ export default function Trees(){
     var stem = new THREE.Mesh( geometry, stemMaterial );
     stem.position.set( 0, 0, 0 );
     stem.scale.set( 0.3, 1.5, 0.3 );
+    stem.receiveShadow = true;
+	stem.castShadow = true;
   
     var squareLeave01 = new THREE.Mesh( geometry, leaveDarkMaterial );
-    squareLeave01.position.set( 0.5, 1.6, 0.5 );
+    squareLeave01.position.set( 0.5, 2, 0.5 );
     squareLeave01.scale.set( 0.8, 0.8, 0.8 );
+    squareLeave01.receiveShadow = true;
+	squareLeave01.castShadow = true;
   
     var squareLeave02 = new THREE.Mesh( geometry, leaveDarkMaterial );
-    squareLeave02.position.set( -0.4, 1.3, -0.4 );
+    squareLeave02.position.set( -0.4, 1.6, -0.4 );
     squareLeave02.scale.set( 0.7, 0.7, 0.7 );
+    squareLeave02.receiveShadow = true;
+	squareLeave02.castShadow = true;
   
     var squareLeave03 = new THREE.Mesh( geometry, leaveDarkMaterial );
-    squareLeave03.position.set( 0.4, 1.7, -0.5 );
+    squareLeave03.position.set( 0.4, 1.8, -0.5 );
     squareLeave03.scale.set( 0.7, 0.7, 0.7 );
+    squareLeave03.receiveShadow = true;
+	squareLeave03.castShadow = true;
   
     var leaveDark = new THREE.Mesh( geometry, leaveDarkMaterial );
-    leaveDark.position.set( 0, 1.2, 0 );
+    leaveDark.position.set( 0, 1.8, 0 );
     leaveDark.scale.set( 1, 2, 1 );
+    leaveDark.receiveShadow = true;
+	leaveDark.castShadow = true;
   
     var leaveLight = new THREE.Mesh( geometry, leaveLightMaterial );
     leaveLight.position.set( 0, 1.2, 0 );
     leaveLight.scale.set( 1.1, 0.5, 1.1 );
+    leaveLight.receiveShadow = true;
+	leaveLight.castShadow = true;
   
     var tree = new THREE.Group();
     tree.add( leaveDark );
@@ -67,11 +79,12 @@ export default function Trees(){
 	tree.position.x = positionX; // Random x position between -300 and 300
 	tree.position.y = 300; // Set y position to half of the cylinder height to place it on the surface
 	tree.position.z = Math.random() * 250 - 280; // Random z position between -400 and 400
-    tree.scale.set( 15, 15, 15 );
+    tree.scale.set( 13, 13, 13 );
 	ground.add(tree);
 	}
 
 	this.mesh = new THREE.Object3D();
 	this.mesh.add(ground);
 	this.mesh.receiveShadow = true;
+	this.mesh.castShadow = true;
 }
