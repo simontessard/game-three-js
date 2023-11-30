@@ -18,24 +18,18 @@ body {
 #info-container {
 	position: absolute;
 	z-index: 888;
-    top:10%;
     left:50%;
 	transform: translateX(-50%);
 	display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 #score, #life {
-	background-color: white;
-	padding: 1rem;
     border-radius: 5px;
-	color: black;
 	width: fit-content;
 }
 
 #score {
-	background-color: #021C88;
-	color: white;
 }
 
 #playButton {
