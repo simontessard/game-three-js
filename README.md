@@ -1,23 +1,36 @@
 # game-three-js
 
-This project is built using ThreeJS via the CDN. 
+This project is built with Vite and using ThreeJS.
 
-The game is made for desktop-only use.
+The game is optimized for desktop.
 
-To run the project, simply clone it.
+To run the project, clone it and install dependencies :
 
-## - Included
+```bash
+npm install
+```
 
-- Bonus increase score by 1
-- Malus decrease score by 1
+## Features
 
-## - Left to do
+- Bonus (blue) increase score by 1
+- Malus (red) decrease life by 1 (pushback airplane effect)
+- Restart game option after loosing
+- Life system (5 lifes when starting)
+
+Scene is composed of :
+1. Sky (clouds and a sun)
+1. Airplane with pilot
+1. Ground with rocks and trees
+
+### Working on
+
+- Effect with text on bonus
+- Better models (ex. bird)
+- Better crashed animation after loosing
+
+#### Upcoming
 
 - Particles effet on collision
-- Effect with text on bonus
-- Restart game option
-- Nombre de vie restante system
 - Level system
-- Show rules
-- Better models
-- Airplane controls with arrows
+- Show rules of the game for user
+- Airplane controls with arrows/spacebar
