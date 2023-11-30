@@ -413,7 +413,7 @@ function stopGame() {
     document.getElementById('game-container').addEventListener('click', startGame);
     deleteMalus();
     deleteBonus();
-    airplane.mesh.position.y = 0;
+    // crashPlane();
 }
 
 function deleteMalus() {
@@ -447,3 +447,9 @@ function showPlusOne() {
       document.body.removed(p);
   },1000);
 }
+
+// var animationCrashPlaneId;
+// function crashPlane() {
+// animationCrashPlaneId = requestAnimationFrame(crashPlane);
+// airplane.mesh.position.y -= 1;
+// }
