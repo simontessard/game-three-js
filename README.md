@@ -18,14 +18,12 @@ npm install
 - Life system (5 lifes when starting)
 
 Scene is composed of :
-1. Sky (clouds and a sun)
+1. Sky (clouds, bird and a sun)
 1. Airplane with pilot
 1. Ground with rocks and trees
 
 ### Working on
 
-- Effect with text on bonus
-- Better models (ex. bird)
 - Better crashed animation after loosing
 
 #### Upcoming
@@ -34,3 +32,6 @@ Scene is composed of :
 - Level system
 - Show rules of the game for user
 - Airplane controls with arrows/spacebar
+
+#### To improve
+- Effect with text on bonus
