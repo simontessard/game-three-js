@@ -58,9 +58,3 @@ body {
   box-shadow: 0 .2em lightgray; 
   cursor: pointer;
 }
-
-#plusOne {
-  z-index: 999;
-  color: blue;
-  font-weight: bold;
-}

@@ -340,7 +340,7 @@ function loop(){
             scoreBox.textContent = "Cobalt Points: " + score;
             bonusArray[i].mesh.position.x = window.innerWidth / 2; // Reset bonus position
             bonusArray[i].mesh.position.y = Math.random() * 150 + 50; // Random y position between 50 and 200
-            showPlusOne(airplane.mesh.position); // Show the "+1" text
+            showPlusOne(); // Show the "+1" text
         }
     }
 
@@ -433,15 +433,17 @@ function deleteBonus() {
   cancelAnimationFrame(animationBonusId);
 }
 
-function showPlusOne(airplanePosition) {
-  var plusOne = document.getElementById('plusOne');
-  plusOne.style.left = '50%';
-  plusOne.style.top = '50%';
-  plusOne.style.opacity = 1;
+function showPlusOne() {
+  var p = document.createElement("div");
+  p.textContent = "+1";
+  p.classList.add("text-3xl","absolute","top-1/2","left-1/2","opacity-0","transition","duration-500");
+  document.body.appendChild(p);
+  p.style.opacity = 1;
 
   // Animate the "+1" text to move up and fade out
   setTimeout(function() {
-      plusOne.style.top = (airplanePosition.y - 50) + 'px';
-      plusOne.style.opacity = 0;
-  },0);
+      p.style.opacity = 0;
+      p.style.top = '40%';
+      document.body.removed(p);
+  },1000);
 }
