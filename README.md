@@ -32,6 +32,7 @@ Scene is composed of :
 - Level system
 - Show rules of the game for user
 - Airplane controls with arrows/spacebar
+- Hearts for life instead of text
 
 #### To improve
 - Effect with text on bonus
