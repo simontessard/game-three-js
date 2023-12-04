@@ -6,6 +6,7 @@ import Bonus from './ressources/bonus.js';
 import Malus from './ressources/malus.js';
 import Sun from './ressources/sun.js';
 import Trees from './ressources/trees.js';
+import Heart from './ressources/heart.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 window.addEventListener('load', init, false);
@@ -29,7 +30,6 @@ var infoBox = document.getElementById('info-container');
 infoBox.style.display = 'none';
 
 var scoreBox = document.getElementById('score');
-var lifeBox = document.getElementById('life');
 
 function startGame() {
   life = 5;
@@ -44,7 +44,7 @@ function startGame() {
   }
   createBonus();
   createMalus();
-  lifeBox.textContent = "Nombre de vie restante: " + life;
+  handleLife();
   document.getElementById('playButton').style.display = 'none';
 	infoBox.style.display = 'flex';
   document.getElementById('game-container').removeEventListener('click', startGame);
@@ -160,7 +160,7 @@ function createLights() {
 }
 
 // Instantiate the rockyGround and add it to the scene:
-var rockyGround, sky, airplane, ground, sun, trees;
+var rockyGround, sky, airplane, ground, sun, trees, heart;
 
 function createRockyGround(){
 	rockyGround = new RockyGround();
@@ -196,6 +196,30 @@ function createPlane(){
 	airplane.mesh.position.y = 100;
 	scene.add(airplane.mesh);
 }
+
+var hearts = []; // Array to store the heart objects
+
+function handleLife() {
+  // Remove all existing hearts
+  for (var i = 0; i < hearts.length; i++) {
+    scene.remove(hearts[i].mesh);
+  }
+  hearts = [];
+
+  // Create a new heart for each life
+  for (var i = 0; i < life; i++) {
+    var heart = new Heart();
+    heart.mesh.scale.set(.25,.25,.25);
+    heart.mesh.position.y = 180;
+    heart.mesh.position.z = -100;
+    heart.mesh.scale.set(.1, .1, .1);
+    heart.mesh.rotation.x = 3;
+    heart.mesh.position.x = i * 12 - 24;
+    scene.add(heart.mesh);
+    hearts.push(heart);
+  }
+}
+
 var loader, customModel;
 function createBird() {
    loader = new GLTFLoader();
@@ -208,6 +232,7 @@ function createBird() {
 	 ( gltf ) => {
         gltf.scene.position.y = 150;
         gltf.scene.position.x = 100;
+        gltf.scene.position.z = -100;
         gltf.scene.rotation.y = 8;
         gltf.scene.scale.set(30, 30, 30);
         gltf.scene.castShadow = true;
@@ -358,9 +383,10 @@ function loop(){
         if (airplaneBox.intersectsBox(malusBox)) {
             life--;
             console.log("Nombre de vie restante: " + life);
-            lifeBox.textContent = "Nombre de vie restante: " + life;
             malusArray[i].mesh.position.x = window.innerWidth / 2; // Reset malus position
             malusArray[i].mesh.position.y = Math.random() * 150 + 50; // Random y position between 50 and 200
+
+            handleLife();
 
             if (life !== 0) {
               isPushedBack = true;
@@ -422,7 +448,6 @@ function normalize(v,vmin,vmax,tmin, tmax){
 function stopGame() {
     gameIsLive = false;
     planeFlying = false;
-    lifeBox.textContent = "Vous avez perdu!";
     document.getElementById('playButton').style.display = 'block';
     document.getElementById('game-container').addEventListener('click', startGame);
     deleteMalus();
@@ -463,7 +488,7 @@ function showPlusOne() {
 }
 
 function crashPlane() {
-  airplane.mesh.position.x -= 1;
+  airplane.mesh.position.x += 0.6;
   airplane.mesh.position.y -= 1;
 	airplane.propeller.rotation.x += 0.1;
 	airplane.mesh.rotation.z = -0.4;
