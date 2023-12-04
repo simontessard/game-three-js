@@ -25,9 +25,27 @@ async function init() {
 }
 var gameIsLive = false;
 var planeFlying = true;
-document.getElementById('game-container').addEventListener('click', startGame);
 var infoBox = document.getElementById('info-container');
 infoBox.style.display = 'none';
+var modal = document.getElementById('authentication-modal');
+var leaderboard = document.getElementById('leaderboard');
+var playButton = document.getElementById('playButton');
+playButton.addEventListener('click', startGame);
+
+var sendGiftButton = document.getElementById('giftButton');
+var playerName = document.getElementById('name');
+var latestScoreNum = null;
+sendGiftButton.addEventListener('click', startGame);
+sendGiftButton.addEventListener("click", function(event){
+  var latestScore = leaderboard.querySelector("p");
+    if (latestScore === null) {
+      latestScore = document.createElement("p");
+      leaderboard.appendChild(latestScore);
+    }
+  latestScore.textContent = playerName.value + '. ' + latestScoreNum;
+  event.preventDefault()
+});
+
 
 var scoreBox = document.getElementById('score');
 
@@ -47,9 +65,10 @@ function startGame() {
   createBonus();
   createMalus();
   handleLife();
-  document.getElementById('playButton').style.display = 'none';
+  modal.style.display = 'none';
+  playButton.style.display = 'none';
 	infoBox.style.display = 'flex';
-  document.getElementById('game-container').removeEventListener('click', startGame);
+  playButton.removeEventListener('click', startGame);
 }
 
 var scene, camera, fieldOfView, aspectRatio, nearPlane, farPlane, HEIGHT, WIDTH, renderer, container;
@@ -453,11 +472,17 @@ function normalize(v,vmin,vmax,tmin, tmax){
 function stopGame() {
     gameIsLive = false;
     planeFlying = false;
-    document.getElementById('playButton').style.display = 'block';
-    document.getElementById('game-container').addEventListener('click', startGame);
+    playButton.style.display = 'block';
+    playButton.textContent = 'CLICK TO PLAY AGAIN';
+    playButton.addEventListener('click', startGame);
     deleteMalus();
     deleteBonus();
     crashPlane();
+
+    infoBox.style.display = 'none';
+    modal.style.display = "flex";
+    document.getElementById('endScore').textContent = 'You have obtained ' + score + ' Cobalt Points !';
+    latestScoreNum = score;
 }
 
 function deleteMalus() {
