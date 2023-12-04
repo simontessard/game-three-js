@@ -385,6 +385,9 @@ function loop(){
             console.log("Nombre de vie restante: " + life);
             malusArray[i].mesh.position.x = window.innerWidth / 2; // Reset malus position
             malusArray[i].mesh.position.y = Math.random() * 150 + 50; // Random y position between 50 and 200
+            console.log('impact');
+            console.log(malusBox);
+            createParticles(malusBox.min);
 
             handleLife();
 
@@ -504,3 +507,34 @@ function crashPlane() {
     life = 5;
   }
 }
+
+var particlesArray = [];
+
+function createParticles(position) {
+  var impactParticles = new Heart();
+  impactParticles.mesh.scale.set(.1,.1,.1);
+  impactParticles.mesh.position.x = position.x;
+  impactParticles.mesh.rotation.x = 3;
+  impactParticles.mesh.position.y = position.y;
+  scene.add(impactParticles.mesh);
+  particlesArray.push(impactParticles);
+
+  setTimeout(function() {
+    scene.remove(impactParticles.mesh);
+    var index = particlesArray.indexOf(impactParticles);
+    if (index > -1) {
+      particlesArray.splice(index, 1);
+    }
+  }, 4000);
+}
+
+function animateParticles() {
+  requestAnimationFrame(animateParticles);
+
+  particlesArray.forEach(function(impactParticles) {
+    impactParticles.mesh.position.y -= 1;
+    impactParticles.mesh.rotation.y -= .2;
+  });
+}
+
+animateParticles();
