@@ -23,6 +23,7 @@ async function init() {
   renderer.render(scene, camera);
 }
 var gameIsLive = false;
+var planeFlying = true;
 document.getElementById('game-container').addEventListener('click', startGame);
 var infoBox = document.getElementById('info-container');
 infoBox.style.display = 'none';
@@ -33,7 +34,14 @@ var lifeBox = document.getElementById('life');
 function startGame() {
   life = 5;
 	airplane.mesh.position.y = 100;
+  airplane.mesh.position.x = 0;
+  airplane.mesh.visible = true;
 	gameIsLive = true;
+	planeFlying = true;
+  if(!airplane) {
+    console.log('d');
+    createPlane();
+  }
   createBonus();
   createMalus();
   lifeBox.textContent = "Nombre de vie restante: " + life;
@@ -354,14 +362,19 @@ function loop(){
             malusArray[i].mesh.position.x = window.innerWidth / 2; // Reset malus position
             malusArray[i].mesh.position.y = Math.random() * 150 + 50; // Random y position between 50 and 200
 
-            isPushedBack = true;
+            if (life !== 0) {
+              isPushedBack = true;
+            }
         }
     }
 	if (isPushedBack) {
 		PushBack();
 	}
-	// update the plane on each frame
-	updatePlane();
+  
+	if (planeFlying) {
+	  // Update the plane on each frame
+	  updatePlane();
+  }
 
 	if (gameIsLive) {
 		updateCamera();
@@ -408,12 +421,13 @@ function normalize(v,vmin,vmax,tmin, tmax){
 
 function stopGame() {
     gameIsLive = false;
+    planeFlying = false;
     lifeBox.textContent = "Vous avez perdu!";
     document.getElementById('playButton').style.display = 'block';
     document.getElementById('game-container').addEventListener('click', startGame);
     deleteMalus();
     deleteBonus();
-    // crashPlane();
+    crashPlane();
 }
 
 function deleteMalus() {
@@ -444,12 +458,21 @@ function showPlusOne() {
   setTimeout(function() {
       p.style.opacity = 0;
       p.style.top = '40%';
-      document.body.removedChild(p);
+      p.remove();
   },1000);
 }
 
-// var animationCrashPlaneId;
-// function crashPlane() {
-// animationCrashPlaneId = requestAnimationFrame(crashPlane);
-// airplane.mesh.position.y -= 1;
-// }
+function crashPlane() {
+  airplane.mesh.position.x -= 1;
+  airplane.mesh.position.y -= 1;
+	airplane.propeller.rotation.x += 0.1;
+	airplane.mesh.rotation.z = -0.4;
+  console.log('crash');
+  if (airplane.mesh.position.x < -window.innerWidth + 500) {
+    console.log('Sortie écran gauche');
+    airplane.mesh.position.x = 0;
+    airplane.mesh.position.y = 100;
+    planeFlying = true;
+    life = 5;
+  }
+}
