@@ -33,6 +33,8 @@ var scoreBox = document.getElementById('score');
 
 function startGame() {
   life = 5;
+  score = 0;
+  scoreBox.textContent = "Cobalt Points: " + score;
 	airplane.mesh.position.y = 100;
   airplane.mesh.position.x = 0;
   airplane.mesh.visible = true;
