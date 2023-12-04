@@ -8,7 +8,7 @@ export default function Cloud(){
 	
 	// create a cube geometry;
 	// this shape will be duplicated to create the cloud
-	var geom = new THREE.DodecahedronGeometry(20,0);
+	var geom = new THREE.DodecahedronGeometry(25,0);
 	
 	// create a material; a simple white material will do the trick
 	var mat = new THREE.MeshPhongMaterial({
