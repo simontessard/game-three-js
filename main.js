@@ -491,8 +491,11 @@ function crashPlane() {
   airplane.mesh.position.x += 0.6;
   airplane.mesh.position.y -= 1;
 	airplane.propeller.rotation.x += 0.1;
-	airplane.mesh.rotation.z = -0.4;
-  console.log('crash');
+
+  // Smoother transition for the plane rotation
+  if (airplane.mesh.rotation.z > -0.4) {
+    airplane.mesh.rotation.z -= 0.01;
+  }
   if (airplane.mesh.position.x < -window.innerWidth + 500) {
     console.log('Sortie écran gauche');
     airplane.mesh.position.x = 0;
