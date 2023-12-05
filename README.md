@@ -33,7 +33,14 @@ Scene is composed of :
 - Level system
 - Show rules of the game for user
 - Airplane controls with arrows/spacebar
+- Wooden fences object always showed
+- Biomes system
+- End game
+- Sounds effects
 
 #### To improve
 - Effect with text on bonus
 - Stock email with backend server or webservice (ex: https://formspree.io/)
+
+#### Known issues
+- Disappearing objects on mobile
