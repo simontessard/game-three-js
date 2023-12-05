@@ -21,7 +21,7 @@ body {
     left:50%;
 	transform: translateX(-50%);
 	display: flex;
-  justify-content: center;
+  	justify-content: center;
 }
 
 #score, #life {
@@ -30,23 +30,18 @@ body {
 }
 
 #playButton {
-	position: absolute;
 	z-index: 888;
-  bottom:12%;
-  left:50%;
+	bottom:12%;
+	left:50%;
 	transform: translateX(-50%);
-  text-align: center;
 	display: inline-block;
 	margin:5px;
-  font-weight: bold;
-  font-size: larger;
-  padding: 10px 15px 10px 15px ;
-  background-color: white;
-  color: black;
-  -webkit-border-radius: 7px;
+	font-weight: bold;
+	font-size: larger;
+	padding: 10px 15px 10px 15px ;
+	-webkit-border-radius: 7px;
 	-moz-border-radius: 7px;
 	-o-border-radius: 7px;
 	border-radius: 7px;
-  box-shadow: 0 .2em lightgray; 
-  cursor: pointer;
+	box-shadow: 0 .2em lightgray; 
 }
