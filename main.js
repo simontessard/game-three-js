@@ -59,7 +59,11 @@ sendGiftButton.addEventListener("click", function(event){
   // Add each score to the leaderboard
   scores.forEach(function(score, index) {
     var scoreLine = document.createElement("li");
-    scoreLine.textContent = (index + 1) + '. ' + score.name + ' : ' + score.score;
+    if (score.name) {
+      scoreLine.textContent = (index + 1) + '. ' + score.name + ' : ' + score.score;
+    } else {
+      scoreLine.textContent = (index + 1) + '. ' + score.score;
+    }
     leaderboard.appendChild(scoreLine);
   });
   event.preventDefault();
@@ -489,17 +493,18 @@ function normalize(v,vmin,vmax,tmin, tmax){
 function stopGame() {
     gameIsLive = false;
     planeFlying = false;
-    playButton.style.display = 'block';
-    playButton.textContent = 'CLICK TO PLAY AGAIN';
-    playButton.addEventListener('click', startGame);
     deleteMalus();
     deleteBonus();
     crashPlane();
 
     // Hide play again button on mobile
     var x = window.matchMedia("(max-width: 700px)")
+    playButton.textContent = 'CLICK TO PLAY AGAIN';
+    playButton.addEventListener('click', startGame);
     if (x.matches) { 
-      playButton.style.opacity = 0;
+      playButton.style.display = "hidden";
+    } else {
+      playButton.style.display = 'block';
     }
 
     infoBox.style.display = 'none';
