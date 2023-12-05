@@ -12,8 +12,10 @@
 <body>
   <section id="game-container">
     <div id="plusOne" class="text-3xl absolute top-1/2 left-1/2 opacity-0 transition duration-500">+1</div>
-    <div id="leaderboard" class="absolute z-50 right-0 p-4">
-      Leaderboard
+    <div id="leaderboard" class="absolute z-50 right-0 p-4 max-sm:hidden">
+      <p class="font-bold text-lg mb-1">Leaderboard</p>
+      <ul id="scoreRanking">
+      </ul>
     </div>
     <div id="info-container"
       class="flex flex-col md:flex-row gap-4 justify-end items-center w-full max-md:px-8 top-[5%] md:top-[10%] max-md:text-center">

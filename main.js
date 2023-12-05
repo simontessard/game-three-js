@@ -28,7 +28,7 @@ var planeFlying = true;
 var infoBox = document.getElementById('info-container');
 infoBox.style.display = 'none';
 var modal = document.getElementById('authentication-modal');
-var leaderboard = document.getElementById('leaderboard');
+var leaderboard = document.getElementById('scoreRanking');
 var playButton = document.getElementById('playButton');
 playButton.addEventListener('click', startGame);
 
@@ -36,16 +36,34 @@ var sendGiftButton = document.getElementById('giftButton');
 var playerName = document.getElementById('name');
 var latestScoreNum = null;
 sendGiftButton.addEventListener('click', startGame);
-sendGiftButton.addEventListener("click", function(event){
-  var latestScore = leaderboard.querySelector("p");
-    if (latestScore === null) {
-      latestScore = document.createElement("p");
-      leaderboard.appendChild(latestScore);
-    }
-  latestScore.textContent = playerName.value + '. ' + latestScoreNum;
-  event.preventDefault()
-});
 
+var scores = [];
+
+sendGiftButton.addEventListener("click", function(event){
+  var score = {
+    name: playerName.value,
+    score: latestScoreNum
+  };
+  scores.push(score);
+
+  // Sort scores from highest to lowest
+  scores.sort(function(a, b) {
+    return b.score - a.score;
+  });
+
+  // Clear the leaderboard
+  while (leaderboard.firstChild) {
+    leaderboard.removeChild(leaderboard.firstChild);
+  }
+
+  // Add each score to the leaderboard
+  scores.forEach(function(score, index) {
+    var scoreLine = document.createElement("li");
+    scoreLine.textContent = (index + 1) + '. ' + score.name + ' : ' + score.score;
+    leaderboard.appendChild(scoreLine);
+  });
+  event.preventDefault();
+});
 
 var scoreBox = document.getElementById('score');
 
@@ -59,7 +77,6 @@ function startGame() {
 	gameIsLive = true;
 	planeFlying = true;
   if(!airplane) {
-    console.log('d');
     createPlane();
   }
   createBonus();
@@ -478,6 +495,12 @@ function stopGame() {
     deleteMalus();
     deleteBonus();
     crashPlane();
+
+    // Hide play again button on mobile
+    var x = window.matchMedia("(max-width: 700px)")
+    if (x.matches) { 
+      playButton.style.opacity = 0;
+    }
 
     infoBox.style.display = 'none';
     modal.style.display = "flex";
