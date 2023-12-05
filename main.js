@@ -251,7 +251,6 @@ function handleLife() {
   // Create a new heart for each life
   for (var i = 0; i < life; i++) {
     var heart = new Heart();
-    heart.mesh.scale.set(.25,.25,.25);
     heart.mesh.position.y = 180;
     heart.mesh.position.z = -100;
     heart.mesh.scale.set(.1, .1, .1);
@@ -567,7 +566,7 @@ var particlesArray = [];
 
 function createParticles(position) {
   var impactParticles = new Heart();
-  impactParticles.mesh.scale.set(.1,.1,.1);
+  impactParticles.mesh.scale.set(.08,.08,.08);
   impactParticles.mesh.position.x = position.x;
   impactParticles.mesh.rotation.x = 3;
   impactParticles.mesh.position.y = position.y;
