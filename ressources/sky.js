@@ -13,7 +13,7 @@ export default function Sky(){
 	
 	// create the clouds
 	for(var i=0; i<this.nClouds; i++){
-		var c = new Cloud();
+		var cloud = new Cloud();
 	 
 		// set the rotation and the position of each cloud;
 		// for that we use a bit of trigonometry
@@ -23,22 +23,21 @@ export default function Sky(){
 		// Trigonometry!!! I hope you remember what you've learned in Math :)
 		// in case you don't: 
 		// we are simply converting polar coordinates (angle, distance) into Cartesian coordinates (x, y)
-		c.mesh.position.y = Math.random() * -250 - 100;
-		c.mesh.position.x = Math.cos(a)*h*2;
+		cloud.mesh.position.y = Math.random() * -250 - 100;
+		cloud.mesh.position.x = Math.cos(a)*h*2;
 
 		// rotate the cloud according to its position
-		c.mesh.rotation.z = a + Math.PI/2;
+		cloud.mesh.rotation.z = a + Math.PI/2;
 
 		// for a better result, we position the clouds 
 		// at random depths inside of the scene
-		c.mesh.position.z = -350-Math.random()*350;
+		cloud.mesh.position.z = -350-Math.random()*350;
 		
 		// we also set a random scale for each cloud
 		var s = 1+Math.random()*2;
-		c.mesh.scale.set(s,s,s);
+		cloud.mesh.scale.set(s,s,s);
 
 		// do not forget to add the mesh of each cloud in the scene
-		this.mesh.add(c.mesh);  
+		this.mesh.add(cloud.mesh);  
 	}
-	
 }

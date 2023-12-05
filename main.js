@@ -541,17 +541,17 @@ function deleteBonus() {
 // SHOW BONUS TEXT ON IMPACT
 
 function showPlusOne() {
-  var p = document.createElement("div");
-  p.textContent = "+1";
-  p.classList.add("text-3xl","absolute","top-1/2","left-1/2","opacity-0","transition","duration-500");
-  document.body.appendChild(p);
-  p.style.opacity = 1;
+  var plusOneText = document.createElement("div");
+  plusOneText.textContent = "+1";
+  plusOneText.classList.add("text-3xl","absolute","top-1/2","left-1/2","opacity-0","transition","duration-500");
+  document.body.appendChild(plusOneText);
+  plusOneText.style.opacity = 1;
 
   // Animate the "+1" text to move up and fade out
   setTimeout(function() {
-      p.style.opacity = 0;
-      p.style.top = '40%';
-      p.remove();
+    plusOneText.style.opacity = 0;
+    plusOneText.style.top = '40%';
+    plusOneText.remove();
   },1000);
 }
 
