@@ -208,7 +208,7 @@ function createLights() {
 }
 
 // Instantiate the rockyGround and add it to the scene:
-var rockyGround, sky, airplane, ground, sun, trees, heart;
+var rockyGround, sky, airplane, ground, sun, trees;
 
 function createRockyGround(){
 	rockyGround = new RockyGround();
@@ -269,7 +269,7 @@ function handleLife() {
 
 var loader, customModel;
 function createBird() {
-   loader = new GLTFLoader();
+  loader = new GLTFLoader();
 
   // Load a glTF resource
   loader.load(
@@ -405,14 +405,14 @@ function loop(){
     }
   }
 
-  var airplaneBox = new THREE.Box3().setFromObject(airplane.mesh);
+var airplaneBox = new THREE.Box3().setFromObject(airplane.mesh);
 
 	for (var i = 0; i < bonusArray.length; i++) { // Check each bonus
-        var bonusBox = new THREE.Box3().setFromObject(bonusArray[i].mesh);
+    var bonusBox = new THREE.Box3().setFromObject(bonusArray[i].mesh);
 
 		// Rotate animation for bonus
 		bonusArray[i].mesh.rotation.x += 0.04;
-    	bonusArray[i].mesh.rotation.y += 0.04;
+    bonusArray[i].mesh.rotation.y += 0.04;
 
         if (airplaneBox.intersectsBox(bonusBox)) {
             score++;
@@ -432,8 +432,6 @@ function loop(){
             console.log("Nombre de vie restante: " + life);
             malusArray[i].mesh.position.x = window.innerWidth / 2; // Reset malus position
             malusArray[i].mesh.position.y = Math.random() * 150 + 50; // Random y position between 50 and 200
-            console.log('impact');
-            console.log(malusBox);
             createParticles(malusBox.min);
 
             handleLife();
@@ -516,7 +514,6 @@ function stopGame() {
 
     infoBox.style.display = 'none';
     if (!isModalShown) {
-      console.log('modal');
       modal.style.display = "flex";
       isModalShown = true;
     }
@@ -541,6 +538,8 @@ function deleteBonus() {
   cancelAnimationFrame(animationBonusId);
 }
 
+// SHOW BONUS TEXT ON IMPACT
+
 function showPlusOne() {
   var p = document.createElement("div");
   p.textContent = "+1";
@@ -556,6 +555,8 @@ function showPlusOne() {
   },1000);
 }
 
+// CRASH PLANE ANIMATION
+
 function crashPlane() {
   airplane.mesh.position.x += 0.6;
   airplane.mesh.position.y -= 1;
@@ -566,13 +567,14 @@ function crashPlane() {
     airplane.mesh.rotation.z -= 0.01;
   }
   if (airplane.mesh.position.x < -window.innerWidth + 500) {
-    console.log('Sortie écran gauche');
     airplane.mesh.position.x = 0;
     airplane.mesh.position.y = 100;
     planeFlying = true;
     life = 5;
   }
 }
+
+// PARTICLES MANAGEMENT
 
 var particlesArray = [];
 
