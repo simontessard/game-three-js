@@ -17,6 +17,7 @@ npm install
 - Restart game option after loosing
 - Life system (5 lifes when starting defined by heart model)
 - Crash animation
+- Particles effect on collision
 
 Scene is composed of :
 1. Sky (clouds, bird and a sun)
@@ -25,7 +26,7 @@ Scene is composed of :
 
 ### Working on
 
-- Particles effet on collision
+- Leaderboard system
 
 #### Upcoming
 
@@ -35,3 +36,4 @@ Scene is composed of :
 
 #### To improve
 - Effect with text on bonus
+- Stock email with backend server or webservice (ex: https://formspree.io/)
