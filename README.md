@@ -13,7 +13,7 @@ npm install
 ## Features
 
 - Bonus (blue) increase score by 1
-- Malus (red) decrease life by 1 (pushback airplane effect)
+- Malus (red) decrease life by 1 (pushback airplane effect + heart particles)
 - Restart game option after loosing
 - Life system (5 lifes when starting defined by heart model)
 - Crash animation
@@ -37,12 +37,17 @@ Scene is composed of :
 - Biomes system
 - End game
 - Sounds effects
+- More models (rocket)
 
 #### To improve
 - Effect with text on bonus
 - Stock email with backend server or webservice (ex: https://formspree.io/)
+- Replaced sun by moon ?
+- Bonus and malus correct shadow
+- Trees generating inside rocks
+- Leaderboard display (space-between)
 
 #### Known issues
 - Disappearing objects on mobile
-- Click button to play to big on mobile (not taking full width)
-- Remove dezoom on mobile
+- No delay endgame form (you don't see airplane crash)
+- addClass in JS is not applying tailwind class
