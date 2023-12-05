@@ -64,11 +64,22 @@ sendGiftButton.addEventListener("click", function(event){
   // Add each score to the leaderboard
   scores.forEach(function(score, index) {
     var scoreLine = document.createElement("li");
+    scoreLine.classList.add("flex", "space-between");
+
+    var indexSpan = document.createElement("span");
+    indexSpan.textContent = (index + 1) + '. ';
+    scoreLine.appendChild(indexSpan);
+  
     if (score.name) {
-      scoreLine.textContent = (index + 1) + '. ' + score.name + ' : ' + score.score;
-    } else {
-      scoreLine.textContent = (index + 1) + '. ' + score.score;
+      var nameSpan = document.createElement("span");
+      nameSpan.textContent = score.name + ' : ';
+      scoreLine.appendChild(nameSpan);
     }
+  
+    var scoreSpan = document.createElement("span");
+    scoreSpan.textContent = score.score;
+    scoreLine.appendChild(scoreSpan);
+
     leaderboard.appendChild(scoreLine);
   });
   event.preventDefault();
@@ -451,7 +462,9 @@ var airplaneBox = new THREE.Box3().setFromObject(airplane.mesh);
   }
 
 	if (gameIsLive) {
-		updateCamera();
+    if (!x.matches) { 
+      updateCamera();
+    } 
 	}
 
   if (life === 0) {
@@ -494,6 +507,7 @@ function normalize(v,vmin,vmax,tmin, tmax){
 }
 
 var isModalShown = false;
+var x = window.matchMedia("(max-width: 641px)")
 
 function stopGame() {
     gameIsLive = false;
@@ -503,7 +517,6 @@ function stopGame() {
     crashPlane();
 
     // Hide play again button on mobile
-    var x = window.matchMedia("(max-width: 700px)")
     playButton.textContent = 'CLICK TO PLAY AGAIN';
     playButton.addEventListener('click', startGame);
     if (x.matches) { 
