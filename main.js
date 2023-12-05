@@ -77,6 +77,7 @@ sendGiftButton.addEventListener("click", function(event){
 var scoreBox = document.getElementById('score');
 
 function startGame() {
+  isModalShown = false;
   life = 5;
   score = 0;
   scoreBox.textContent = "Cobalt Points: " + score;
@@ -494,6 +495,8 @@ function normalize(v,vmin,vmax,tmin, tmax){
 	return tv;
 }
 
+var isModalShown = false;
+
 function stopGame() {
     gameIsLive = false;
     planeFlying = false;
@@ -512,7 +515,11 @@ function stopGame() {
     }
 
     infoBox.style.display = 'none';
-    modal.style.display = "flex";
+    if (!isModalShown) {
+      console.log('modal');
+      modal.style.display = "flex";
+      isModalShown = true;
+    }
     document.getElementById('endScore').textContent = 'You have obtained ' + score + ' Cobalt Points !';
     latestScoreNum = score;
 }
