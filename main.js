@@ -28,6 +28,11 @@ var planeFlying = true;
 var infoBox = document.getElementById('info-container');
 infoBox.style.display = 'none';
 var modal = document.getElementById('authentication-modal');
+
+var closeModalButton = document.getElementById('closeModalButton');
+closeModalButton.addEventListener("click", function(event){
+  modal.style.display = 'none';
+});
 var leaderboard = document.getElementById('scoreRanking');
 var playButton = document.getElementById('playButton');
 playButton.addEventListener('click', startGame);
