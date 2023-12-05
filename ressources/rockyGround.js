@@ -23,16 +23,43 @@ export default function RockyGround(){
 	ground.castShadow = true;
 	ground.receiveShadow = true;
 
-    for (var i = 0; i < 50; i++) { 
-		var geomRock = new THREE.DodecahedronGeometry(30, 0); 
-		var rock = new THREE.Mesh(geomRock, matRock);
-		var positionX = Math.random() * 2000 - 100;
-		rock.position.x = positionX; // Random x position between -300 and 300
-		rock.position.y = 300; // Set y position to half of the cylinder height to place it on the surface
-		rock.position.z = Math.random() * 250 - 280; // Random z position between -400 and 400
-		rock.receiveShadow = true;
-		rock.castShadow = true;
-		ground.add(rock);
+    var rockPositions = [];
+
+	for (var i = 0; i < 50; i++) {
+
+		var randomHeight = Math.random() * 12 + 25;
+  		var randomRotation = Math.random() * Math.PI * 2; // Random rotation in radians
+
+  		var geomRock = new THREE.DodecahedronGeometry(randomHeight, 0); 
+  		var rock = new THREE.Mesh(geomRock, matRock);
+  		var positionX, positionZ;
+
+  		while (true) {
+    	positionX = Math.random() * 2000 - 100;
+    	positionZ = Math.random() * 250 - 280;
+
+    	var isTooClose = rockPositions.some(function(pos) {
+      	var dx = pos.x - positionX;
+      	var dz = pos.z - positionZ;
+      	var distance = Math.sqrt(dx * dx + dz * dz);
+
+      	return distance < 50; // Minimum distance between rocks
+    	});
+
+    	if (!isTooClose) {
+      		break;
+    	}
+  	}
+
+  		rockPositions.push({ x: positionX, z: positionZ });
+
+  		rock.position.x = positionX;
+  		rock.position.y = 300;
+		rock.rotation.y = randomRotation;
+  		rock.position.z = positionZ;
+  		rock.receiveShadow = true;
+  		rock.castShadow = true;
+  		ground.add(rock);
 	}
 
 	// Allow the rockyGround to receive shadows
