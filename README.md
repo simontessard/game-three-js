@@ -45,3 +45,4 @@ Scene is composed of :
 #### Known issues
 - Disappearing objects on mobile
 - Click button to play to big on mobile (not taking full width)
+- Remove dezoom on mobile
